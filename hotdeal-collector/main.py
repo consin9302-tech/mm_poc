@@ -2,7 +2,7 @@ import os
 import json
 from dotenv import load_dotenv
 from db import init_db, SessionLocal, save_or_update_product
-from collector import CoupangPartnersClient
+from collectors import CoupangPartnersClient
 
 # .env 파일 로드 (만약 존재할 경우)
 load_dotenv()
