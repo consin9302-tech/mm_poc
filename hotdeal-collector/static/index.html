@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IsThereAnyHotdeal - 핫딜 모니터링 대시보드</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Google Fonts Inter & Outfit 적용 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 상단 헤더 영역 -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="logo-icon">🏷️</span>
+                <h1 id="app-title">IsThereAnyHotdeal</h1>
+                <span class="version-badge">v0.1 POC</span>
+            </div>
+            
+            <div class="header-controls">
+                <div class="search-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" placeholder="관심 상품 검색..." autocomplete="off">
+                    <button id="clear-search-btn" style="display: none;">×</button>
+                </div>
+                
+                <button id="sync-btn" class="btn-primary">
+                    <span class="btn-text">🔄 지금 수집하기</span>
+                    <span class="spinner" style="display: none;"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 메인 콘텐츠 영역 (사이드바 + 메인 그리드) -->
+        <div class="main-layout">
+            <!-- 사이드바 필터 패널 -->
+            <aside class="sidebar">
+                <div class="filter-group">
+                    <h2>🎯 플랫폼 필터</h2>
+                    <ul class="filter-list">
+                        <li><button class="filter-btn active" id="filter-all" data-platform="">전체 보기</button></li>
+                        <li><button class="filter-btn" id="filter-coupang" data-platform="coupang"><span class="badge badge-coupang">C</span> 쿠팡 파트너스</button></li>
+                        <li><button class="filter-btn" id="filter-naver" data-platform="naver"><span class="badge badge-naver">N</span> 네이버 쇼핑</button></li>
+                        <li><button class="filter-btn" id="filter-toss" data-platform="toss"><span class="badge badge-toss">T</span> 토스 쇼핑</button></li>
+                    </ul>
+                </div>
+
+                <div class="filter-group">
+                    <h2>⚖️ 정렬 기준</h2>
+                    <select id="sort-select" class="form-select">
+                        <option value="discount">할인율 높은 순</option>
+                        <option value="price_asc">가격 낮은 순</option>
+                        <option value="price_desc">가격 높은 순</option>
+                        <option value="title">이름 가나다순</option>
+                    </select>
+                </div>
+
+                <div class="filter-group stats-panel">
+                    <h2>📊 현재 통계</h2>
+                    <div class="stat-card">
+                        <span class="stat-label">수집된 총 핫딜</span>
+                        <span class="stat-value" id="stat-total">0</span>
+                    </div>
+                    <div class="stat-card-sub">
+                        <div>쿠팡: <span id="stat-coupang">0</span></div>
+                        <div>네이버: <span id="stat-naver">0</span></div>
+                        <div>토스: <span id="stat-toss">0</span></div>
+                    </div>
+                </div>
+                
+                <div class="footer-info">
+                    <p>마지막 가격 확인 시각 기준 핫딜 판정.</p>
+                </div>
+            </aside>
+
+            <!-- 메인 대시보드 리스트 테이블 -->
+            <main class="content-area">
+                <div class="deals-header">
+                    <h2>🔥 오늘의 실시간 핫딜 후보</h2>
+                    <span class="results-count" id="results-count">0개 상품 조회됨</span>
+                </div>
+
+                <div class="deals-table-container">
+                    <table class="deals-table" id="deals-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 80px;">플랫폼</th>
+                                <th style="width: 80px;">이미지</th>
+                                <th>상품 정보</th>
+                                <th style="width: 110px; text-align: right;">현재가</th>
+                                <th style="width: 100px; text-align: center;">할인 정보</th>
+                                <th style="width: 140px; text-align: center;">업데이트 시각</th>
+                                <th style="width: 110px; text-align: center;">구매</th>
+                            </tr>
+                        </thead>
+                        <tbody id="deals-tbody">
+                            <!-- JS를 통해 동적 생성 -->
+                            <tr>
+                                <td colspan="7" class="loading-state">데이터를 불러오는 중입니다...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- 알림 메시지 토스트 -->
+    <div id="toast" class="toast"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
