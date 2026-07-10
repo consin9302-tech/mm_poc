@@ -39,11 +39,17 @@
 - **호환성 및 리팩토링 [11:30]**: `collector.py`는 하위 호환용 래퍼로 수정하고, `main.py` 수집기 진입점을 `collectors` 패키지로 전환 완료.
 - **확장성 테스트 추가 [11:31]**: 신규 설계 구조와 네이버/토스 스텁 작동 확인을 위해 [test_collectors.py](file:///c:/work/mm/hotdeal-collector/test_collectors.py) 테스트 코드를 작성하고 전체 테스트(`discover` 명령어로 총 6개 테스트 통과) 성공 검증 및 Git 푸시 완료.
 
+### 6. 웹 대시보드 구축 및 연동 검증 [12:04 ~ 12:06]
+- **의존성 설치**: `fastapi`, `uvicorn` 패키지를 `requirements.txt`에 명행 및 설치 완료.
+- **웹 서버 구축 [12:04]**: [main_web.py](file:///c:/work/mm/hotdeal-collector/main_web.py)를 개발하여 FastAPI 기반 웹 서버 생성. 데이터가 비어 있을 시 네이버/토스 스텁 데이터를 기반으로 한 데모 데이터 자동 적재(Seeding) 로직을 포함함.
+- **프론트엔드 UI/UX 구축 [12:05]**: `isthereanydeal.com` 스타일의 고밀도 다크 모드 대시보드를 Vanilla HTML/CSS/JS로 제작 ([index.html](file:///c:/work/mm/hotdeal-collector/static/index.html), [style.css](file:///c:/work/mm/hotdeal-collector/static/style.css), [app.js](file:///c:/work/mm/hotdeal-collector/static/app.js)).
+- **동적 연동**: 플랫폼 필터링, 실시간 키워드 검색(Debounce 처리), 가격 낮은순/할인율 높은순 등의 다차원 정렬, 그리고 백엔드 수집기를 동작시키는 "지금 수집하기" 기능 연동 완료.
+- **배포 및 테스트 [12:06]**: 로컬 웹 서버(`http://localhost:8000`)를 실행하고 API 정상 동작 및 시드 데이터 출력을 직접 확인 후 깃허브 원격 저장소에 반영(Push) 완료.
+
 ---
 
 ## 📋 향후 작업 예정 사항 (To-Do)
-- [ ] **쿠팡 Partners API 키 입력**: 발급 완료 후 `.env` 파일에 `COUPANG_ACCESS_KEY` 및 `COUPANG_SECRET_KEY` 반영.
-- [ ] **POC 1차 수집 실행**: `python main.py` 실행하여 실제 API 응답 데이터가 DB에 정상 적재되는지 및 `hotdeal_poc_output.json` 결과물이 올바르게 생성되는지 확인.
-- [ ] **가격 하락 필터링 검증**: DB 수동 가격 조작 후 재수집하여 가격 하락 할인율 계산이 성공 기준에 부합하는지 최종 확인.
-- [ ] **본 개발 단계 이행**: POC 검증 통과 후 `hotdeal-web-collector-plan-v0.1.md`에 근거한 웹 대시보드(FastAPI + React) 아키텍처 설계 및 본 개발 착수.
+- [ ] **대시보드 모니터링**: 브라우저에서 `http://localhost:8000`을 직접 열어 다크 모드 대시보드가 정상 구동되는지 육안 확인.
+- [ ] **쿠팡 Partners API 키 등록 대기**: 쿠팡 서버 측 동기화(약 1시간 ~ 반나절 소요)가 완료되면, 대시보드 내 "지금 수집하기" 버튼을 눌러 실제 골드박스 데이터가 불러와지는지 최종 테스트.
+- [ ] **본 개발 단계 이행**: POC 검증 통과 후 `hotdeal-web-collector-plan-v0.1.md`에 근거한 본 개발(상태 전이 모델, 상세 분석 뷰, 채널 발송 설정 등) 착수.
 
