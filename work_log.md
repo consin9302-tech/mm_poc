@@ -28,6 +28,15 @@
   - 가격 하락 시 이전 가격 기록 및 변동 알림(is_changed) 감지 테스트
 - **테스트 결과**: 3개 테스트 케이스 모두 통과(OK).
 
+### 5. 수집기 구조 개편 및 플랫폼 확장 준비 (네이버, 토스)
+- **추상화 패키지 구성**: `hotdeal-collector/collectors/` 디렉토리를 신설하고 공통 인터페이스 `BaseCollector`([base.py](file:///c:/work/mm/hotdeal-collector/collectors/base.py))를 정의함.
+- **수집기 모듈 분리**:
+  - [coupang.py](file:///c:/work/mm/hotdeal-collector/collectors/coupang.py): 기존 쿠팡 골드박스 수집 로직 이관 및 인터페이스 맞춤 구현.
+  - [naver.py](file:///c:/work/mm/hotdeal-collector/collectors/naver.py): 네이버 쇼핑커넥트 연동 대비용 스켈레톤(Stub 데이터) 모듈 작성.
+  - [toss.py](file:///c:/work/mm/hotdeal-collector/collectors/toss.py): 토스쇼핑 쉐어링크 연동 대비용 스켈레톤(Stub 데이터) 모듈 작성.
+- **호환성 및 리팩토링**: `collector.py`는 하위 호환용 래퍼로 수정하고, `main.py` 수집기 진입점을 `collectors` 패키지로 전환 완료.
+- **확장성 테스트 추가**: 신규 설계 구조와 네이버/토스 스텁 작동 확인을 위해 [test_collectors.py](file:///c:/work/mm/hotdeal-collector/test_collectors.py) 테스트 코드를 작성하고 전체 테스트(`discover` 명령어로 총 6개 테스트 통과) 성공 검증 및 Git 푸시 완료.
+
 ---
 
 ## 📋 향후 작업 예정 사항 (To-Do)
@@ -35,3 +44,4 @@
 - [ ] **POC 1차 수집 실행**: `python main.py` 실행하여 실제 API 응답 데이터가 DB에 정상 적재되는지 및 `hotdeal_poc_output.json` 결과물이 올바르게 생성되는지 확인.
 - [ ] **가격 하락 필터링 검증**: DB 수동 가격 조작 후 재수집하여 가격 하락 할인율 계산이 성공 기준에 부합하는지 최종 확인.
 - [ ] **본 개발 단계 이행**: POC 검증 통과 후 `hotdeal-web-collector-plan-v0.1.md`에 근거한 웹 대시보드(FastAPI + React) 아키텍처 설계 및 본 개발 착수.
+
