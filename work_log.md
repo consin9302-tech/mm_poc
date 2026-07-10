@@ -17,6 +17,7 @@
 - **API 최초 호출 결과 [11:54]**: `python main.py` 실행 결과 쿠팡 API로부터 `401 Unauthorized (Specified key is not registered)` 에러를 수신함. 이는 신규 발급된 쿠팡 API 키가 활성화 및 동기화되기까지 걸리는 대기 시간(최소 1시간 ~ 반나절)에 의한 현상으로 판단되며, 쿠팡 서버 측 동기화 완료 후 재시험 예정.
 - **재시도 결과 (11:57)**: 공인 IP(`112.171.68.125`)를 등록 후 재호출하였으나 동일하게 `Specified key is not registered`가 발생했습니다. 쿠팡 파트너스 API 게이트웨이 반영까지 대기 시간이 추가로 필요한 상태입니다.
 - **재시도 결과 (13:32)**: 키 발급 후 약 1.5시간 대기 후 재실행하였으나 여전히 `Specified key is not registered`가 발생했습니다. 쿠팡 시스템 특성상 당일 늦은 오후나 내일까지 추가적인 동기화 대기가 필요할 것으로 보입니다.
+- **재시도 결과 (14:08)**: 다시 한번 시도하였으나 여전히 `Specified key is not registered`가 반환되어 동기화 완료를 계속 대기 중입니다.
 
 ### 3. Git 및 GitHub 연동 [11:06 ~ 11:13]
 - **보안 설정 [11:06]**: `.env` 파일 및 로컬 SQLite DB 파일(`hotdeal.db`)이 퍼블릭 깃허브에 노출되지 않도록 [.gitignore](file:///c:/work/mm/.gitignore) 작성 적용.
