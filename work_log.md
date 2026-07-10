@@ -13,7 +13,8 @@
 ### 2. 로컬 개발 환경 구축
 - **Python 설치**: 현재 직장 PC에 Python이 설치되어 있지 않음을 식별하고, `winget` 패키지 관리자를 사용하여 **Python 3.12.10**을 사용자 영역에 설치 완료.
 - **의존성 패키지 설치**: `pip`를 통해 `requirements.txt`에 명시된 `requests`, `SQLAlchemy`, `python-dotenv` 라이브러리를 정상 설치 완료.
-- **환경 변수 구성**: `hotdeal-collector/.env` 설정 템플릿 파일을 생성하여 사용자가 실제 쿠팡 API 키를 등록할 수 있도록 준비.
+- **환경 변수 구성**: `hotdeal-collector/.env` 파일에 사용자의 실제 쿠팡 API 키(`Access Key`, `Secret Key`) 반영 완료.
+- **API 최초 호출 결과**: `python main.py` 실행 결과 쿠팡 API로부터 `401 Unauthorized (Specified key is not registered)` 에러를 수신함. 이는 신규 발급된 쿠팡 API 키가 활성화 및 동기화되기까지 걸리는 대기 시간(최소 1시간 ~ 반나절)에 의한 현상으로 판단되며, 쿠팡 서버 측 동기화 완료 후 재시험 예정.
 
 ### 3. Git 및 GitHub 연동
 - **보안 설정**: `.env` 파일 및 로컬 SQLite DB 파일(`hotdeal.db`)이 퍼블릭 깃허브에 노출되지 않도록 [.gitignore](file:///c:/work/mm/.gitignore) 작성 적용.
