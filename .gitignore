@@ -1,0 +1,33 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Outputs & Temporary files
+hotdeal_poc_output.json
+*.log
+tmp/
+temp/
+
+# IDE files
+.idea/
+.vscode/
+.gemini/
+
+# Node/Frontend (for future main development)
+node_modules/
+dist/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
